@@ -14,13 +14,27 @@
 
 (ns no-agenda-downloader.core-test
   (:require [clojure.test :refer :all]
-            [no-agenda-downloader.core :refer :all]))
+            [no-agenda-downloader.feed :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 1 1))))
+(def test-url "http://feed.nashownotes.com/rss.xml")
+(def file-name "NA-628-2014-06-22-Final.mp3")
+(def file-name-url "http://mp3s.nashownotes.com/NA-628-2014-06-22-Final.mp3")
+(def url-map { :attrs {
+                      :url file-name-url
+                      :length "144478324"
+                      :type "audio/mpeg" }})
 
 (deftest rss-test
   (testing "url doesn't match"
-    (is (= "e:/downloads/rss.xml"
-          (no-agenda-downloader.core/get-rss)))))
+    (is (= test-url
+          (#'no-agenda-downloader.feed/get-rss)))))
+
+(deftest file-name-test
+  (testing "file name didn't match"
+    (is file-name
+        (#'no-agenda-downloader.feed/get-file-name file-name-url))))
+
+(deftest url-map-test
+  (testing "URL's do not match"
+    (is file-name-url
+        (#'no-agenda-downloader.feed/get-link url-map))))

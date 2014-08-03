@@ -1,6 +1,6 @@
 # no-agenda-downloader
 
-My first project using Clojure. This application wil download the latest
+My first project using Clojure. This application will download the latest
 episodes from the [No Agenda Show](http://www.noagendashow.com/) RSS
 feed.
 
@@ -27,6 +27,8 @@ No command line options
 
 ## To do
 
+* Fix spelling errors
+* More unit tests
 * Ignore existing mp3 episodes
 * Have more feedback when downloading episodes
 * Allow users to specify which episodes to download
