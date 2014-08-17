@@ -23,14 +23,19 @@
   "http://feed.nashownotes.com/rss.xml")
 
 
-(defn- get-feed-seq [location]
-  "returns a sequence of xml maps from the specified file"
-  (xml-seq (parse location)))
+;(defn- get-feed-seq [location]
+;  "returns an xml map sequence from the specified rss file/stream"
+;  (xml-seq (parse location)))
 
 
-(defn- get-xml-elements [rss-data]
-  "returns a sequence of xml elements which contain the link to the mp3"
-  (filter #(= :enclosure (:tag %)) rss-data))
+;(defn- get-xml-elements [rss-data]
+;  "returns a sequence of xml elements which contain the link to the mp3"
+;  (filter #(= :enclosure (:tag %)) rss-data))
+
+
+(defn- get-url-sequence [location]
+  (filter #(= :enclosure (:tag %))
+          (xml-seq (parse location))))
 
 ;; public
 
@@ -46,10 +51,7 @@
 
 (defn get-urls []
   "returns a sequence of urls"
-  (let [link-seq
-        (get-xml-elements
-          (get-feed-seq
-            (get-rss)))]
+  (let [link-seq (get-url-sequence (get-rss))]
     (map get-link link-seq)))
 
 
